@@ -4,20 +4,24 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "test:watch": "jest --passWithNoTests --watch",
+    "test:ci": "jest --passWithNoTests --coverage",
+    "test:staged": "jest --passWithNoTests --findRelatedTest"
   },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
       "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true",
-      "pre-push": "react-app-rewired test --watchAll false --env=jest-environment-jsdom-sixteen"
+      "pre-push": "npm run test:staged"
     }
   },
   "lint-staged": {
     "*.{ts,tsx}": [
       "prettier --config prettier.config.js --write",
       "eslint --fix --ignore-pattern '!.eslintrc.json'",
+      "npm run test:staged",
       "git add -u"
     ]
   },
