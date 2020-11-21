@@ -4,10 +4,10 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "test": "jest",
-    "test:watch": "jest --passWithNoTests --watch",
-    "test:ci": "jest --passWithNoTests --coverage",
-    "test:staged": "jest --passWithNoTests --findRelatedTest"
+    "test": "jest  --passWithNoTests",
+    "test:watch": "npm run test -- --watch",
+    "test:ci": "npm run test -- --coverage",
+    "test:staged": "npm run test --  --findRelatedTests"
   },
   "husky": {
     "hooks": {
@@ -21,8 +21,7 @@
     "*.{ts,tsx}": [
       "prettier --config prettier.config.js --write",
       "eslint --fix --ignore-pattern '!.eslintrc.json'",
-      "npm run test:staged",
-      "git add -u"
+      "npm run test:staged"
     ]
   },
   "config": {
