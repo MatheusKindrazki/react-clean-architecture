@@ -5,16 +5,14 @@
   "license": "MIT",
   "scripts": {
     "test": "jest  --passWithNoTests",
-    "test:watch": "npm run test -- --watch",
-    "test:ci": "npm run test -- --coverage",
-    "test:staged": "npm run test --  --findRelatedTests"
+    "test:watch": "npm run test -- --watch"
   },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
       "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true",
-      "pre-push": "npm run test:staged"
+      "pre-push": "jest --passWithNoTests"
     }
   },
   "lint-staged": {
