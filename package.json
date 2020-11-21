@@ -3,10 +3,34 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true",
+      "pre-push": "react-app-rewired test --watchAll false --env=jest-environment-jsdom-sixteen"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "prettier --config prettier.config.js --write",
+      "eslint --fix --ignore-pattern '!.eslintrc.json'",
+      "git add -u"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
   "devDependencies": {
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
     "@types/node": "^14.14.9",
     "@typescript-eslint/eslint-plugin": "^4.8.1",
     "@typescript-eslint/parser": "^4.8.1",
+    "commitizen": "^4.2.2",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^7.12.1",
     "eslint-config-standard": "^16.0.2",
     "eslint-plugin-import": "^2.22.1",
@@ -14,6 +38,8 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.21.5",
     "git-commit-msg-linter": "^3.0.0",
+    "husky": "^4.3.0",
+    "lint-staged": "^10.5.1",
     "typescript": "^4.1.2"
   }
 }
